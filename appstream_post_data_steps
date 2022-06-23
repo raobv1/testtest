@@ -1,0 +1,38 @@
+Step 1) Goto sessions scripts directory using below command
+
+        #cd /opt/appstream/SessionScripts
+
+Step 2) Open config.json replace contents with below 
+{
+  "SessionStart": {
+    "executables": [
+                   {
+                 "Context": "system",
+                 "Filename": "/opt/appstream/SessionScripts/post_data.sh"
+              }
+    ],
+    "waitingTime": 30
+  },
+  "SessionTermination": {
+    "executables": [],
+    "waitingTime": 30
+  }
+}
+
+
+Step 3) Create file /opt/appstream/SessionScripts/post_data.sh
+
+Step 4) Change permissions by executing below command  
+
+       #chmod 755 /opt/appstream/SessionScripts/post_data.sh
+
+Step 5) Add below code on /opt/appstream/SessionScripts/post_data.sh script
+
+IP=$(hostname -I | awk '{print $2}')
+
+echo $IP > /tmp/data.txt
+echo $APPSTREAM_SESSION_CONTEXT >> /tmp/data.txt
+#put your curl command here to send /tmp/data.txt
+
+
+
